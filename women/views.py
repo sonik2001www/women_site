@@ -8,7 +8,6 @@ from django.views.generic import ListView, DetailView, CreateView, FormView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from random import randint
 import re
-
 from .models import *
 from .form import *
 from .utils import *
