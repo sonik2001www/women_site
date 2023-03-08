@@ -1,0 +1,74 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <title>Game</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <link rel="shortcut icon" href="{% static 'women/images/main.ico' %}" type="image/x-icon"/>
+    <link type="text/css" href="{% static 'women/css/styles.css' %}" rel="stylesheet" />
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+
+<div class="header">
+    <ul id="mainmenu" class="mainmenu">
+        <li class="logo"><a href="/"><div class="logo"></div></a></li>
+
+        <li><a href="/">Головна сторінка</a></li>
+
+        <li class="last">{{user}} | <a href="/logout">Вийти</a></li>
+    </ul>
+</div>
+
+<div class="row">
+    <div class="col-1"></div>
+    <div class="col-6">
+        <div class="d-grid gap-2 d-sm-flex justify-content-sm-center py-3">
+            <form method="post" action="/game/">{% csrf_token %}
+                <button class="btn btn-warning btn-lg px-4 gap-3">Створити кімнату</button>
+            </form>
+        </div>
+        <h1>Iгри:</h1>
+        {% for r in rooms %}
+        <div class="px-4 py-1 my-5 text-center" style="border-style:solid; background-color: #eee;">
+            <div class="col-lg-6 mx-auto">
+              <h4>{{r.user_1}} ({{r.score_1}}) - ({{r.score_2}}) {{r.user_2}}</h4>
+              <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+                  {% if r.user_2 == 'не визначений' and r.user_1 != user and r.attempt_2 == 0 %}
+                    <button type="button" class="btn btn-danger btn-lg px-4 gap-3"><a href="{{ r.get_absolute_url }}" style="color:white">Приєднатися</a></button>
+                {% elif r.user_1 == user and r.attempt_1 == 0 %}
+                    <button type="button" class="btn btn-danger btn-lg px-4 gap-3"><a href="{{ r.get_absolute_url }}" style="color:white">Грати</a></button>
+                {% endif %}
+              </div>
+            </div>
+
+        </div>
+        {% endfor %}
+    </div>
+
+    <div class="col-1"></div>
+
+    <div class="col-3">
+        <h1>Мої ігри:</h1>
+        {% for r in rooms_user %}
+        <div class="px-4 py-1 my-5 text-center" style="border-style:solid; background-color: #eee;">
+
+            {% if r.winner != 'нема' %}
+                <h4 class="fw-bold">{{ r.winner }}</h4>
+            {% endif %}
+            <div class="col-lg-6 mx-auto">
+              <h6>{{r.user_1}} ({{r.score_1}}) - ({{r.score_2}}) {{r.user_2}}</h6>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+
+</body>
+</html>
+
+
+

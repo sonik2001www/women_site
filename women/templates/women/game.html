@@ -1,0 +1,40 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <title>Game</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <link rel="shortcut icon" href="{% static 'women/images/main.ico' %}" type="image/x-icon"/>
+    <link type="text/css" href="{% static 'women/css/styles.css' %}" rel="stylesheet" />
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+
+<div class="header">
+    <ul id="mainmenu" class="mainmenu">
+        <li class="logo"><a href="/"><div class="logo"></div></a></li>
+
+        <li><a href="/">Головна сторінка</a></li>
+
+        <li class="last">user1 | <a href="/logout">Вийти</a></li>
+    </ul>
+</div>
+
+<div class="row">
+    <div class="col-2"></div>
+    <div class="col-6">
+        <form method="GET" class="post-form py-5">{% csrf_token %}
+            <p><label class="form-label">вік {{room.name_1}}</label>{{ form.year_1 }}</p>
+            <p><label class="form-label">вік {{room.name_2}}</label>{{ form.year_2 }}</p>
+            <p><label class="form-label">вік {{room.name_3}}</label>{{ form.year_3 }}</p>
+            <button type="submit">Відправити</button>
+        </form>
+    </div>
+
+</div>
+
+
+</body>
+</html>
